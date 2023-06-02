@@ -1,11 +1,10 @@
 import os
-import sys
 from dotenv import load_dotenv
 
 
 dotenv_path = ".env" 
 
-print(os.path.exists(dotenv_path))
+#print(os.path.exists(dotenv_path)) #Test .env module 
 
 load_dotenv(dotenv_path)
 

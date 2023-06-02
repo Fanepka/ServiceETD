@@ -1,6 +1,5 @@
 from fastapi import FastAPI
-from cabinet.router import router
-
+from api.router import router
 
 
 
@@ -8,5 +7,6 @@ app = FastAPI()
 
 app.include_router(
     router,
+    prefix="/api",
     tags=["Requests"]
 )
