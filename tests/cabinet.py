@@ -1,6 +1,13 @@
+import json
 import requests
 
 
-r = requests.get("http://127.0.0.1:8000/requests", params={"limit": 1})
+data = {
+    "email": "play.fanner@gmail.com",
+    "password": "123456"
+}
 
-print(r.json())
+r = requests.get("http://127.0.0.1:8000/api/addresses", headers={"token": "12345"})
+
+print(r.status_code)
+

@@ -2,44 +2,52 @@ from pydantic import BaseModel
 from datetime import datetime
 
 
-class Addreas(BaseModel):
 
-    id: int
+class User(BaseModel):
+
+    email: str
+    password: str
+    token: str = None
+
+
+class Address(BaseModel):
+
+    id: int = None
     name: str
 
 
 class Company(BaseModel):
 
-    id: int
+    id: int = None
     name: str
 
 
 class Executer(BaseModel):
 
-    id: int
+    id: int = None
     fullname: str
 
 
 class System(BaseModel):
 
 
-    id: int
+    id: int = None
     name: str
 
 
 class Type(BaseModel):
 
-    id: int
+    id: int = None
     name: str
     days: int
 
 
 class Request(BaseModel):
 
-    id: int
+    id: int = None
     company: Company | int
     status: str
-    addreas: Addreas | int
+    addreas: Address | int
     system: System | int
     phone: str
     contact: str

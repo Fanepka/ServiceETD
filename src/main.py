@@ -1,12 +1,13 @@
 from fastapi import FastAPI
-from api.router import router
+from api import rts
 
 
 
 app = FastAPI()
 
-app.include_router(
+for router in rts:
+    app.include_router(
     router,
     prefix="/api",
-    tags=["Requests"]
-)
+    )
+
