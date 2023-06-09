@@ -5,7 +5,6 @@ from aiomysql.cursors import DictCursor, Cursor
 from asyncio.events import AbstractEventLoop, get_event_loop
 
 from typing import Any
-from loguru import logger
 
 
 class MySQL:
@@ -25,7 +24,6 @@ class MySQL:
         self.port = port
         self.loop = loop
 
-        logger.info(f"DataBase connected, Host: {host}, User: {user}, DataBase: {database}")
 
     async def _connection(self) -> Connection:
         
