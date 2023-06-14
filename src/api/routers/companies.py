@@ -1,12 +1,13 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from api.db_queries import CompanyQuery
 from api.schemas import Company
-
+from api.manager import JWTBearer
 
 router = APIRouter(
     prefix="",
-    tags=["Companies"]
+    tags=["Companies"],
+    dependencies=[Depends(JWTBearer())]
 )
 cq = CompanyQuery()
 

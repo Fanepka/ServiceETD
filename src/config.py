@@ -18,12 +18,10 @@ DATABASE = {
 
 }
 
+JWT = {
 
-FIREBASE = {
-    "apiKey": "AIzaSyAVwksNpLY2dR4R6Po7g_MvAFcHaIjclS0",
-    "authDomain": "etdservice-pr.firebaseapp.com",
-    "projectId": "etdservice-pr",
-    "storageBucket": "etdservice-pr.appspot.com",
-    "messagingSenderId": "542453163805",
-    "appId": "1:542453163805:web:d37220ef2a79832f7c23f4"
+    "secret": os.environ.get("JWT_SECRET"),
+    "algorithm": os.environ.get("JWT_ALGORITHM")
+
+
 }

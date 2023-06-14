@@ -1,12 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from api.db_queries import SystemQuery
 from api.schemas import System
+from api.manager import JWTBearer
 
 
 router = APIRouter(
     prefix="",
-    tags=["Systems"]
+    tags=["Systems"],
+    dependencies=[Depends(JWTBearer())]
 )
 sq = SystemQuery()
 

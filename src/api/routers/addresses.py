@@ -1,12 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from api.db_queries import AddressQuery
 from api.schemas import Address
+from api.manager import JWTBearer
 
 
 router = APIRouter(
     prefix="",
-    tags=["Addresses"]
+    tags=["Addresses"], 
+    dependencies=[Depends(JWTBearer())]
 )
 aq = AddressQuery()
 

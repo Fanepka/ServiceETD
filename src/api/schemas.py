@@ -10,6 +10,21 @@ class User(BaseModel):
     token: str = None
 
 
+class UserLogging(BaseModel):
+
+    email: str
+    password: str
+
+    class Config:
+
+         schema_extra = {
+            "example": {
+                "email": "abdulazeez@x.com",
+                "password": "weakpassword"
+            }
+        }
+
+
 class Address(BaseModel):
 
     id: int = None

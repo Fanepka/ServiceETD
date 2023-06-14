@@ -4,7 +4,7 @@ from typing import List
 from datetime import datetime
 
 from api.schemas import *
-from api.utils import get_hashed_password, get_token
+from api.utils import get_hashed_password
 
 
 class UserQuery(MySQL):
@@ -12,11 +12,11 @@ class UserQuery(MySQL):
     def __init__(self):
         super().__init__(**DATABASE)
 
-    async def create_user(self, email: str, password: str):
+    async def create_user(self, email: str, password: str, token: str):
         hashed_password = get_hashed_password(password)
         self.cursor(
             "INSERT INTO Users(email, password, token) VALUES(%s, %s, %s)",
-            (email, hashed_password, get_token(hashed_password))
+            (email, hashed_password, token)
         )
         await self.commit()
 
@@ -31,6 +31,19 @@ class UserQuery(MySQL):
             return None
         
         return User(**response)
+    
+    async def get_by_email_and_password(self, email: str, password: str) -> User:
+        self.cursor(
+            "SELECT * FROM Users WHERE email = %s AND password = %s",
+            (email, get_hashed_password(password))
+        )
+
+        response = await self.fetchone()
+        if not response:
+            return None
+        
+        return User(**response)
+        
         
 
 
@@ -81,7 +94,7 @@ class AddressQuery(MySQL):
 
 
     async def get_all(self, limit: int) -> List[Address]:
-        self.cursor("SELECT * FROM Addreases LIMIT %s", (limit, ))
+        self.cursor("SELECT * FROM Addresses LIMIT %s", (limit, ))
 
         return [Address(**i) for i in await self.fetchall()]
     
@@ -96,7 +109,7 @@ class AddressQuery(MySQL):
         return Address(**response)
     
     async def get(self, addr_id: int) -> Address:
-        self.cursor("SELECT * FROM Addreases WHERE id = %s", (addr_id, ))
+        self.cursor("SELECT * FROM Addresses WHERE id = %s", (addr_id, ))
 
         response = await self.fetchone()
         if not response:
@@ -105,7 +118,7 @@ class AddressQuery(MySQL):
         return Address(**response)
     
     async def delete(self, addr_id: int):
-        self.cursor("DELETE FROM Addreases WHERE id = %s", (addr_id, ))
+        self.cursor("DELETE FROM Addresses WHERE id = %s", (addr_id, ))
         await self.commit()
 
 class CompanyQuery(MySQL):

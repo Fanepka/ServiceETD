@@ -1,12 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from api.db_queries import ExecuterQuery
-from api.schemas import Executer    
+from api.schemas import Executer   
+from api.manager import JWTBearer 
 
 
 router = APIRouter(
     prefix="",
-    tags=["Executer"]
+    tags=["Executer"],
+    dependencies=[Depends(JWTBearer())]
 )
 eq = ExecuterQuery()
 

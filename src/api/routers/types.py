@@ -1,12 +1,14 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 
 from api.db_queries import TypeQuery
 from api.schemas import Type
+from api.manager import JWTBearer
 
 
 router = APIRouter(
     prefix="",
-    tags=["Types"]
+    tags=["Types"],
+    dependencies=[Depends(JWTBearer())]
 )
 tq = TypeQuery()
 
